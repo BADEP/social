@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2024 Manuel Regidor <manuel.regidor@sygel.es>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -66,8 +66,8 @@
         <field name="view_mode">list,form</field>
     </record>
     <menuitem
-        parent="mail.mail_menu_technical"
         id="menu_user_autosubscribe_mute"
+        parent="mail.mail_menu_technical"
         name="User Autosubscribe Mute"
         action="user_autosubscribe_mute_action"
         groups="base.group_system"
