@@ -16,7 +16,7 @@ class TestMailActivityBoardMethods(TransactionCase):
                 "name": "Employee",
                 "login": "csu",
                 "email": "crmuser@yourcompany.com",
-                "groups_id": [
+                "group_ids": [
                     (
                         6,
                         0,
@@ -36,7 +36,7 @@ class TestMailActivityBoardMethods(TransactionCase):
                 "name": "Employee2",
                 "login": "alien",
                 "email": "alien@yourcompany.com",
-                "groups_id": [(6, 0, [mail_activity_group.id])],
+                "group_ids": [(6, 0, [mail_activity_group.id])],
             }
         )
 
@@ -67,8 +67,7 @@ class TestMailActivityBoardMethods(TransactionCase):
                 "name": "Celebrate the sale",
                 "delay_count": 3,
                 "delay_unit": "days",
-                "summary": "ACT 3 : "
-                "Beers for everyone because I am a good salesman !",
+                "summary": "ACT 3 : Beers for everyone because I am a good salesman !",
                 "res_model": partner_model.model,
             }
         )
@@ -180,10 +179,7 @@ class TestMailActivityBoardMethods(TransactionCase):
         """
         action_id = self.env.ref("mail_activity_board.open_boards_activities").id
         action = self.partner_client.redirect_to_activities(
-            **{
-                "id": self.partner_client.id,
-                "model": self.partner_client._name,
-            }
+            id=self.partner_client.id, model=self.partner_client._name
         )
         self.assertEqual(action.get("id"), action_id)
 
