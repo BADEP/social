@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 from odoo.tools import SQL
 
 from odoo.addons.mail.tools.discuss import Store
@@ -28,9 +28,9 @@ class ResPartner(models.Model):
                 search_term, channel_id=channel_id, limit=limit
             )
         gateway_group = self.env.ref("mail_gateway.gateway_user")
-        domain = expression.AND(
+        domain = Domain.AND(
             [
-                expression.OR(
+                Domain.OR(
                     [
                         [("name", "ilike", search_term)],
                         [("email", "ilike", search_term)],
@@ -42,7 +42,7 @@ class ResPartner(models.Model):
                 [("user_ids.share", "=", False)],
                 [("channel_ids", "not in", channel.id)],
                 # only users allowed to access gateway channels can be invited to them
-                [("user_ids.groups_id", "in", gateway_group.id)],
+                [("user_ids.group_ids", "in", gateway_group.id)],
             ]
         )
         query = self._search(domain, limit=limit)
@@ -124,13 +124,10 @@ class ResPartnerGatewayChannel(models.Model):
                 f"{gateway_channel.partner_id.display_name} ({gateway_channel.name})"
             )
 
-    _sql_constraints = [
-        (
-            "unique_partner_gateway",
-            "UNIQUE(partner_id, gateway_id)",
-            "Partner can only have one configuration for each gateway.",
-        ),
-    ]
+    _unique_partner_gateway = models.Constraint(
+        "UNIQUE(partner_id, gateway_id)",
+        "Partner can only have one configuration for each gateway.",
+    )
 
     def mail_format(self):
         return [r._mail_format() for r in self]

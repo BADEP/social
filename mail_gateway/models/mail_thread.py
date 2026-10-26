@@ -55,7 +55,7 @@ class MailThread(models.AbstractModel):
                     "id": partner.id,
                     "is_follower": True,
                     "lang": partner.lang,
-                    "groups": set(user.groups_id.ids),
+                    "groups": set(user.group_ids.ids),
                     "notif": notification.get("channel_type"),
                     "share": partner.partner_share,
                     "uid": user[:1].id,
