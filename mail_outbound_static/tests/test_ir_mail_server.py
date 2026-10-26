@@ -5,7 +5,7 @@ import logging
 import os
 from email import message_from_string
 
-import odoo.tools as tools
+from odoo import tools
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
