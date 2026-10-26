@@ -35,5 +35,5 @@ class MailingList(models.Model):
             )
             if len(list(filter(lambda r: r["partner_id_count"] > 1, data))):
                 raise ValidationError(
-                    _("A partner cannot be multiple times " "in the same list")
+                    _("A partner cannot be multiple times in the same list")
                 )
